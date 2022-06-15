@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
+
+import Home from './components/Home/Home'
+import Header from './components/Layout/Header'
+
+import Profile from './components/Profile/Profile'
+import Register from './components/Register/Register'
+import Login from './components/Login/Login'
+
+import GuitarState from './context/guitars/GuitarState'
+import UserState from './context/users/UserState'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<UserState>
+				<GuitarState>
+					<Router>
+						<Header />
+
+						<Routes>
+							{/* RUTAS PRIVADAS */}
+							<Route path='/perfil' element={<Profile />} />
+
+							{/* RUTAS DE AUTENTICACIÓN */}
+							<Route path='/registro' element={<Register />} />
+							<Route path='/iniciar-sesion' element={<Login />} />
+
+							{/* RUTAS PÚBLICAS */}
+							<Route path='/' element={<Home />} />
+						</Routes>
+					</Router>
+				</GuitarState>
+			</UserState>
+		</>
+	)
 }
 
-export default App;
+export default App
