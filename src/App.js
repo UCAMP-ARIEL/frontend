@@ -1,3 +1,5 @@
+import React from 'react'
+
 import './App.css'
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 
@@ -10,6 +12,7 @@ import Login from './components/Login/Login'
 
 import GuitarState from './context/guitars/GuitarState'
 import UserState from './context/users/UserState'
+import PrivateRoute from './components/Auth/PrivateRoute'
 
 function App() {
 	return (
@@ -21,7 +24,9 @@ function App() {
 
 						<Routes>
 							{/* RUTAS PRIVADAS */}
-							<Route path='/perfil' element={<Profile />} />
+							<Route element={<PrivateRoute />}>
+								<Route path='/perfil' element={<Profile />} />
+							</Route>
 
 							{/* RUTAS DE AUTENTICACIÓN */}
 							<Route path='/registro' element={<Register />} />

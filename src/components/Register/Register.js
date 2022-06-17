@@ -6,7 +6,7 @@ import FormInput from '../FormInput'
 export default function Register() {
 	const userCtx = useContext(UserContext)
 
-	const { registerUser, data, authStatus } = userCtx
+	const { registerUser, data } = userCtx
 
 	const sendData = (event) => {
 		event.preventDefault()

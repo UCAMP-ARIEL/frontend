@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import GuitarContext from '../../context/guitars/GuitarContext'
+import UserContext from '../../context/users/UserContext'
 import PaypalButton from '../Paypal/PaypalButton'
 
 export default function GuitarList() {
@@ -17,9 +19,11 @@ export default function GuitarList() {
 	// B. ESTADO GLOBAL
 	// CONTEXTO
 	const ctx = useContext(GuitarContext)
+	const userCtx = useContext(UserContext)
 
 	// DATOS VÍA DESESTRUCTURACIÓN DE OBJETOS, CON EL CONTEXTO
 	const { guitars, createGuitar, getGuitars, updateGuitar, deleteGuitar } = ctx
+	const { user } = userCtx
 
 	// C. MANEJO ASÍNCRONO DE OBTENCIÓN DE DATOS
 	useEffect(() => {
@@ -104,7 +108,7 @@ export default function GuitarList() {
 					<div key={elem._id}>
 						<h2>{elem.nombre}</h2>
 						<p>Precio: ${elem.precio}</p>
-						<PaypalButton total={elem.precio} />
+						{user?.username ? <PaypalButton total={elem.precio} /> : <Link to='/iniciar-sesion'>Login</Link>}
 						<button onClick={(evt) => activateEditMode(elem)}>Editar</button>
 						<button onClick={(evt) => sendDataToDeleteGuitar(elem)}>Borrar</button>
 					</div>
